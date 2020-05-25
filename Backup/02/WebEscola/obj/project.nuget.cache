@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "r3ItkX1DUx+iSxEGV9iIxF4EOBeVc5Ap896OdEQO6EakJbsw1FblP2ZhzPg7BOD3RsGC1YxXr1X2rnGT2OyIlQ==",
+  "success": true,
+  "projectFilePath": "D:\\ProjetosCSharp\\Mvc\\ASP NET Core MVC\\WebEscola\\WebEscola.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\josuecamelo\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}
