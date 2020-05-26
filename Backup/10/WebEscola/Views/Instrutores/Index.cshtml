@@ -1,0 +1,135 @@
+﻿@model WebEscola.Models.ViewModels.InstrutorIndexData
+
+@{
+    ViewData["Title"] = "Lista de Instrutores";
+}
+
+<h1>Instrutores</h1>
+
+<p>
+    <a asp-action="Create">Adicionar Instrutor</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nome
+            </th>
+            <th>
+                Sobrenome
+            </th>
+            <th>
+                Contratação
+            </th>
+            <th>
+                Escritório
+            </th>
+            <th>
+                Cursos
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Instrutores)
+        {
+            string selectedRow = "";
+
+            if (item.InstrutorID == (int?)ViewData["InstrutorID"])
+            {
+                selectedRow = "table-success";
+            }
+
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sobrenome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contratacao)
+                </td>
+                <td>
+                    @if (item.Escritorio != null)
+                    {
+                        @item.Escritorio.Localizacao
+                    }
+                </td>
+                <td>
+                    @{
+                        @item.CursosInstrutor.Count()
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.InstrutorID">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.InstrutorID">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.InstrutorID">Excluir</a> |
+                    <a asp-action="Index" asp-route-InstrutorID="@item.InstrutorID">Selecionar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.Cursos != null)
+    @if (Model.Cursos.Count() > 0)
+    {
+        <h3>Cursos atribuídos ao instrutor</h3>
+        <table class="table">
+            <tr>
+                <th>Curso</th>
+                <th>Departamento</th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Cursos)
+            {
+
+                string selectedRow = "";
+
+                if (item.CursoID == (int?)ViewData["CursoID"])
+                {
+                    selectedRow = "table-success";
+                }
+                <tr class="@selectedRow">
+                    <td>
+                        @item.Titulo
+                    </td>
+                    <td>
+                        @item.Departamento.Nome
+                    </td>
+                    <td>
+                        @Html.ActionLink("Selecionar", "Index", new { cursoID = item.CursoID, instrutorID = (int)ViewData["InstrutorID"] })
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+
+    @if (Model.Matriculas != null)
+    {
+        <h3>
+            Alunos deste curso
+        </h3>
+        <table class="table">
+            <tr>
+                <th>Nome</th>
+                <th>Nascimento</th>
+            </tr>
+            @foreach (var item in Model.Matriculas)
+            {
+                <tr>
+                    <td>
+                        @item.Aluno.Nome
+                    </td>
+                    <td>
+                        @item.Aluno.Data.ToString("dd/MM/yyyy")
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+
+
